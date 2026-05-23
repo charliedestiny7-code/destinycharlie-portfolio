@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destiny Emmanuel Charlie | Computational Chemist & Research Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-deep:    #0C2461;
+  --blue-mid:     #1A3A8F;
+  --blue-bright:  #2253CC;
+  --blue-vivid:   #4A90E2;
+  --blue-glow:    rgba(74,144,226,0.18);
+  --gold:         #E8B824;
+  --gold-light:   #F5CF50;
+  --gold-dim:     rgba(232,184,36,0.15);
+  --crimson:      #C0285A;
+  --crimson-soft: #E04080;
+  --white:        #F8F6F1;
+  --off-white:    #EDE8DC;
+  --gray-light:   #BEC8E0;
+  --gray-mid:     #7A8EB5;
+  --text-body:    #C8D4ED;
+  --border:       rgba(232,184,36,0.22);
+  --card-bg:      rgba(26,58,143,0.42);
+  --card-hover:   rgba(34,83,204,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--blue-deep);
+  color: var(--text-body);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── GEOMETRIC HEX PATTERN BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(74,144,226,0.18) 1px, transparent 0);
+  background-size: 38px 38px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Diagonal stripe layer */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      60deg,
+      transparent,
+      transparent 60px,
+      rgba(232,184,36,0.025) 60px,
+      rgba(232,184,36,0.025) 61px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      transparent,
+      transparent 60px,
+      rgba(74,144,226,0.04) 60px,
+      rgba(74,144,226,0.04) 61px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--blue-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3.5rem;
+  background: rgba(12,36,97,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s;
+}
+.nav-logo {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem; color: var(--gold);
+  letter-spacing: 0.06em; font-style: italic;
+}
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--gray-light);
+  font-size: 0.75rem; letter-spacing: 0.12em;
+  text-transform: uppercase; font-weight: 500;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: transparent !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--gold) !important;
+  padding: 0.35rem 1.1rem; border-radius: 2px;
+}
+.nav-cta:hover { background: var(--gold-dim) !important; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none; padding: 4px;
+}
+.hamburger span { display: block; width: 24px; height: 1.5px; background: var(--gold); transition: all 0.3s; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; position: relative;
+  padding: 8rem 4rem 5rem; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at 65% 35%, rgba(74,144,226,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(192,40,90,0.1) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(232,184,36,0.08) 0%, transparent 40%),
+    linear-gradient(150deg, #0C2461 0%, #0A1E55 55%, #071540 100%);
+}
+
+/* Molecule SVG */
+.hero-molecule {
+  position: absolute; right: -40px; top: 50%;
+  transform: translateY(-50%);
+  width: 640px; height: 640px;
+  opacity: 0.09; z-index: -1;
+  animation: rotateMol 55s linear infinite;
+}
+@keyframes rotateMol {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Floating orbs */
+.hero-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(60px); pointer-events: none; z-index: -1;
+}
+.orb-1 { width: 350px; height: 350px; background: rgba(74,144,226,0.12); top: 10%; left: -5%; }
+.orb-2 { width: 250px; height: 250px; background: rgba(232,184,36,0.08); bottom: 15%; right: 8%; }
+.orb-3 { width: 180px; height: 180px; background: rgba(192,40,90,0.07); top: 60%; left: 40%; }
+
+.hero-label {
+  font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: 1rem;
+  opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards;
+}
+.hero-label::before { content: ''; width: 38px; height: 1px; background: var(--gold); }
+
+h1.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6.5vw, 6rem);
+  font-weight: 900; line-height: 1.0;
+  color: var(--white); letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+  opacity: 0; animation: fadeUp 0.9s ease 0.5s forwards;
+}
+h1.hero-name .name-accent { color: var(--gold); font-style: italic; }
+
+.hero-divider {
+  width: 80px; height: 2px; margin: 1.2rem 0;
+  background: linear-gradient(90deg, var(--gold), var(--crimson), transparent);
+  opacity: 0; animation: fadeUp 0.8s ease 0.65s forwards;
+}
+
+.hero-ids {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  margin-bottom: 1rem;
+  opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+}
+.hero-id-badge {
+  font-size: 0.68rem; letter-spacing: 0.1em;
+  padding: 0.28rem 0.9rem; border-radius: 2px;
+  border: 1px solid rgba(74,144,226,0.4);
+  color: var(--blue-vivid); background: rgba(74,144,226,0.08);
+}
+.hero-id-badge strong { color: var(--gold-light); }
+
+.hero-titles {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  color: var(--gray-light); margin: 0.6rem 0 1.6rem;
+  opacity: 0; animation: fadeUp 0.9s ease 0.75s forwards;
+}
+.hero-titles strong { color: var(--gold-light); font-weight: 500; }
+
+.hero-philosophy {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-style: italic; color: var(--off-white);
+  max-width: 620px; border-left: 2px solid var(--crimson);
+  padding-left: 1.4rem; margin-bottom: 2.8rem; line-height: 1.65;
+  opacity: 0; animation: fadeUp 0.9s ease 0.9s forwards;
+}
+
+.hero-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.9s ease 1.05s forwards;
+}
+.btn-primary {
+  background: var(--gold); color: var(--blue-deep);
+  padding: 0.82rem 2rem; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.3s; border-radius: 2px;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,184,36,0.35); }
+.btn-outline {
+  background: transparent; color: var(--white);
+  padding: 0.82rem 2rem; border: 1px solid rgba(200,212,237,0.3);
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+  font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; transition: all 0.3s; border-radius: 2px;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--gray-mid); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; animation: scrollBounce 2s ease infinite; }
+.scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent); }
+@keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── COMMON SECTION ── */
+section { position: relative; padding: 7rem 4rem; z-index: 1; }
+.section-label {
+  font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.9rem;
+}
+.section-label::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+h2.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 700; color: var(--white); line-height: 1.15; margin-bottom: 0.8rem;
+}
+h2.section-title em { color: var(--gold); font-style: italic; }
+.section-divider {
+  width: 55px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--crimson));
+  margin: 1.2rem 0 2.8rem;
+}
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── DIVISION BANNER ── */
+.division-banner {
+  background: linear-gradient(90deg, rgba(26,58,143,0.7), rgba(34,83,204,0.3));
+  border-top: 1px solid rgba(74,144,226,0.25);
+  border-bottom: 1px solid rgba(74,144,226,0.25);
+  padding: 1.2rem 4rem;
+  margin: -7rem -4rem 5rem;
+  display: flex; align-items: center; gap: 1.5rem;
+  backdrop-filter: blur(8px);
+}
+.division-roman {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 900;
+  color: rgba(232,184,36,0.25); line-height: 1;
+  flex-shrink: 0;
+}
+.division-text h3 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.2rem; color: var(--white); margin-bottom: 0.2rem;
+}
+.division-text p { font-size: 0.8rem; color: var(--gray-mid); }
+
+/* ── ABOUT ── */
+#about {
+  background: linear-gradient(180deg, #071540 0%, #0A1E55 100%);
+  border-top: 1px solid var(--border);
+}
+.about-grid {
+  display: grid; grid-template-columns: 340px 1fr;
+  gap: 5rem; align-items: start;
+  max-width: 1200px; margin: 0 auto;
+}
+.identity-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 2.2rem;
+  position: sticky; top: 7rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.avatar-ring {
+  width: 78px; height: 78px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-mid), var(--blue-bright));
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; color: var(--gold);
+  margin-bottom: 1.4rem;
+  box-shadow: 0 0 0 6px rgba(232,184,36,0.1);
+}
+.id-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.25rem; color: var(--white); margin-bottom: 0.25rem;
+}
+.id-role {
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.4rem;
+}
+.id-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.6rem; }
+.tag {
+  font-size: 0.64rem; letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 0.25rem 0.7rem; border-radius: 2px; border: 1px solid;
+}
+.tag-gold { border-color: rgba(232,184,36,0.4); color: var(--gold); }
+.tag-crimson { border-color: rgba(192,40,90,0.4); color: var(--crimson-soft); }
+.tag-blue { border-color: rgba(74,144,226,0.35); color: var(--blue-vivid); }
+.id-stat {
+  display: flex; justify-content: space-between;
+  padding: 0.65rem 0; border-bottom: 1px solid rgba(74,144,226,0.1);
+  font-size: 0.78rem;
+}
+.id-stat:last-child { border-bottom: none; }
+.stat-label { color: var(--gray-mid); }
+.stat-value { color: var(--white); font-weight: 500; font-size: 0.75rem; }
+.stat-value a { color: var(--gold); text-decoration: none; }
+
+.about-body p {
+  font-size: 1rem; line-height: 1.9; margin-bottom: 1.4rem; color: var(--text-body);
+}
+.about-body p.lead {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.2rem; color: var(--off-white); line-height: 1.75;
+}
+.focus-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.9rem; margin-top: 2.2rem;
+}
+.focus-card {
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: rgba(74,144,226,0.05);
+  transition: all 0.3s;
+}
+.focus-card:hover {
+  border-color: var(--gold); background: var(--gold-dim);
+  transform: translateX(4px);
+}
+.focus-card h4 {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem; color: var(--white); margin-bottom: 0.2rem;
+}
+.focus-card p { font-size: 0.76rem; color: var(--gray-mid); margin: 0; line-height: 1.5; }
+
+/* ── RESEARCH ── */
+#research {
+  background: linear-gradient(180deg, #0A1E55 0%, #0C2461 100%);
+  border-top: 1px solid rgba(74,144,226,0.2);
+}
+.research-max { max-width: 1200px; margin: 0 auto; }
+.research-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: rgba(74,144,226,0.15);
+  border: 1px solid rgba(74,144,226,0.2);
+  border-radius: 6px; overflow: hidden;
+}
+.r-card {
+  background: rgba(10,30,85,0.92);
+  padding: 2.2rem; transition: background 0.3s;
+  position: relative; overflow: hidden;
+}
+.r-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; width: 3px; height: 0;
+  background: linear-gradient(to bottom, var(--gold), var(--crimson));
+  transition: height 0.4s;
+}
+.r-card:hover { background: rgba(26,58,143,0.7); }
+.r-card:hover::before { height: 100%; }
+.r-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem; font-weight: 900;
+  color: rgba(74,144,226,0.12); line-height: 1; margin-bottom: 1rem;
+}
+.r-card h3 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem; color: var(--white); margin-bottom: 0.7rem; line-height: 1.35;
+}
+.r-card p { font-size: 0.8rem; color: var(--gray-mid); line-height: 1.7; margin-bottom: 1rem; }
+.tool-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tool-pill {
+  font-size: 0.62rem; letter-spacing: 0.06em; padding: 0.2rem 0.55rem;
+  background: rgba(232,184,36,0.08); border: 1px solid rgba(232,184,36,0.22);
+  color: var(--gold); border-radius: 2px; text-transform: uppercase;
+}
+
+/* ── PUBLICATIONS ── */
+#publications {
+  background: linear-gradient(180deg, #071540 0%, #0A1E55 100%);
+  border-top: 1px solid var(--border);
+}
+.pub-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  max-width: 1200px; margin: 0 auto 2.5rem; flex-wrap: wrap; gap: 1.5rem;
+}
+.scholar-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  border: 1px solid var(--border); padding: 0.65rem 1.4rem;
+  border-radius: 3px; text-decoration: none;
+  color: var(--gold); font-size: 0.74rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  transition: all 0.3s; background: rgba(232,184,36,0.05);
+}
+.scholar-btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+.pub-stats {
+  display: flex; gap: 2rem; margin-bottom: 3rem;
+  max-width: 1200px; margin: 0 auto 2.5rem;
+}
+.pub-stat-item { text-align: center; }
+.pub-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 900; color: var(--gold); line-height: 1;
+}
+.pub-stat-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); }
+
+.pub-list {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 1px;
+  background: rgba(74,144,226,0.15);
+  border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; overflow: hidden;
+}
+.pub-item {
+  background: rgba(10,30,85,0.92);
+  padding: 1.8rem 2.2rem;
+  display: grid; grid-template-columns: 55px 1fr auto;
+  gap: 1.8rem; align-items: start;
+  transition: background 0.3s;
+}
+.pub-item:hover { background: rgba(26,58,143,0.55); }
+.pub-item.first-author {
+  border-left: 3px solid var(--gold);
+  background: rgba(232,184,36,0.05);
+}
+.pub-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--gold); opacity: 0.55;
+  line-height: 1; text-align: right; padding-top: 4px;
+}
+.pub-body h4 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem; color: var(--white); line-height: 1.45; margin-bottom: 0.45rem;
+}
+.pub-authors { font-size: 0.78rem; color: var(--gray-mid); margin-bottom: 0.35rem; font-style: italic; }
+.pub-authors strong { color: var(--gold-light); font-style: normal; font-weight: 600; }
+.pub-journal { font-size: 0.75rem; color: var(--crimson-soft); letter-spacing: 0.04em; }
+.pub-badges { display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-end; }
+.badge {
+  font-size: 0.6rem; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 0.22rem 0.65rem; border-radius: 2px; white-space: nowrap;
+}
+.badge-a { background: rgba(192,40,90,0.15); color: var(--crimson-soft); border: 1px solid rgba(192,40,90,0.25); }
+.badge-b { background: rgba(232,184,36,0.1); color: var(--gold); border: 1px solid rgba(232,184,36,0.22); }
+.badge-c { background: rgba(74,144,226,0.12); color: var(--blue-vivid); border: 1px solid rgba(74,144,226,0.25); }
+.first-star {
+  font-size: 0.62rem; letter-spacing: 0.1em; color: var(--gold);
+  text-transform: uppercase; display: flex; align-items: center; gap: 0.35rem;
+}
+
+/* ── EXPERIENCE ── */
+#experience {
+  background: linear-gradient(180deg, #0C2461 0%, #0A1E55 100%);
+  border-top: 1px solid rgba(74,144,226,0.2);
+}
+.exp-max { max-width: 950px; margin: 0 auto; }
+.timeline { position: relative; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, var(--gold), rgba(232,184,36,0.05));
+}
+.tl-item { padding-left: 3rem; padding-bottom: 4rem; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute; left: -5px; top: 7px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--gold); border: 2px solid var(--blue-deep);
+  box-shadow: 0 0 0 4px rgba(232,184,36,0.18);
+}
+.tl-period {
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.45rem;
+}
+.tl-item h3 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.3rem; color: var(--white); margin-bottom: 0.25rem;
+}
+.tl-org { font-size: 0.8rem; color: var(--crimson-soft); font-style: italic; margin-bottom: 0.9rem; }
+.tl-item p { font-size: 0.88rem; color: var(--text-body); line-height: 1.82; margin-bottom: 0.85rem; }
+.tl-methods { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.method-tag {
+  font-size: 0.62rem; letter-spacing: 0.07em; padding: 0.22rem 0.65rem;
+  background: rgba(192,40,90,0.1); border: 1px solid rgba(192,40,90,0.22);
+  color: var(--crimson-soft); border-radius: 2px; text-transform: uppercase;
+}
+
+/* ── WRITING / PROFESSIONAL ── */
+#writing {
+  background: linear-gradient(180deg, #071540 0%, #0A1E55 100%);
+  border-top: 1px solid var(--border);
+}
+.writing-max { max-width: 1200px; margin: 0 auto; }
+.services-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.3rem;
+}
+.svc-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 2rem; backdrop-filter: blur(10px);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.svc-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: linear-gradient(90deg, var(--gold), var(--crimson));
+  transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+}
+.svc-card:hover { transform: translateY(-4px); border-color: rgba(232,184,36,0.38); box-shadow: 0 16px 48px rgba(0,0,0,0.25); }
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-icon { font-size: 1.6rem; margin-bottom: 0.9rem; }
+.svc-card h3 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem; color: var(--white); margin-bottom: 0.6rem;
+}
+.svc-card p { font-size: 0.82rem; color: var(--gray-mid); line-height: 1.72; }
+
+/* Writing skills list */
+.skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 1.5rem; }
+.skill-line {
+  display: flex; align-items: center; gap: 0.7rem;
+  font-size: 0.82rem; color: var(--text-body); padding: 0.3rem 0;
+}
+.skill-line::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0;
+}
+
+/* ── MEMBERSHIPS / CERTIFICATIONS ── */
+#memberships {
+  background: linear-gradient(180deg, #0C2461, #0A1E55);
+  border-top: 1px solid rgba(74,144,226,0.2);
+}
+.mem-max { max-width: 1200px; margin: 0 auto; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.mem-group h3 {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.3rem; padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.mem-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 0.9rem 0; border-bottom: 1px solid rgba(74,144,226,0.08);
+}
+.mem-item:last-child { border-bottom: none; }
+.mem-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--gold); flex-shrink: 0; margin-top: 6px;
+}
+.mem-text h4 { font-size: 0.88rem; color: var(--white); margin-bottom: 0.15rem; }
+.mem-text p { font-size: 0.74rem; color: var(--gray-mid); }
+.mem-text span { font-size: 0.68rem; color: var(--crimson-soft); }
+
+/* ── TOOLKIT ── */
+#toolkit {
+  background: linear-gradient(180deg, #071540, #0C2461);
+  border-top: 1px solid var(--border);
+}
+.toolkit-max { max-width: 1200px; margin: 0 auto; }
+.toolkit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; }
+.tk-cat {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 6px; padding: 1.8rem; backdrop-filter: blur(10px);
+}
+.tk-cat h3 {
+  font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.3rem; padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border);
+}
+.tk-item {
+  display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.7rem 0; border-bottom: 1px solid rgba(74,144,226,0.06);
+  transition: all 0.2s;
+}
+.tk-item:last-child { border-bottom: none; }
+.tk-item:hover { padding-left: 5px; }
+.tk-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.tk-item span { font-size: 0.85rem; color: var(--text-body); transition: color 0.2s; }
+.tk-item:hover span { color: var(--white); }
+
+/* ── CONTACT ── */
+#contact {
+  background: linear-gradient(180deg, #0A1E55, #050f2e);
+  border-top: 1px solid var(--border); text-align: center;
+}
+.contact-max { max-width: 820px; margin: 0 auto; }
+.contact-tagline {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-style: italic; color: var(--off-white);
+  margin-bottom: 2.8rem; line-height: 1.55;
+}
+.contact-cards { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+.c-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.65rem;
+  padding: 1.8rem 1.5rem; border: 1px solid var(--border); border-radius: 6px;
+  text-decoration: none; min-width: 175px;
+  background: var(--card-bg); backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.c-card:hover { border-color: var(--gold); transform: translateY(-4px); background: rgba(232,184,36,0.07); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+.c-icon { font-size: 1.5rem; }
+.c-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+.c-val { font-family: 'EB Garamond', serif; font-size: 0.82rem; color: var(--gray-light); font-style: italic; }
+.collab-note { font-size: 0.8rem; color: var(--gray-mid); max-width: 480px; margin: 0 auto; line-height: 1.75; }
+
+/* Referees */
+.referees-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 1200px; margin: 3rem auto 0; }
+.ref-card {
+  background: rgba(74,144,226,0.06); border: 1px solid rgba(74,144,226,0.18);
+  border-radius: 4px; padding: 1.4rem;
+}
+.ref-card h4 { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--white); margin-bottom: 0.25rem; }
+.ref-card p { font-size: 0.75rem; color: var(--gray-mid); line-height: 1.6; }
+.ref-card .ref-rel { font-size: 0.68rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.5rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: #040d20; border-top: 1px solid rgba(74,144,226,0.15);
+  padding: 1.8rem 4rem; display: flex;
+  justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-name { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold); font-size: 0.98rem; }
+.footer-copy { font-size: 0.7rem; color: var(--gray-mid); letter-spacing: 0.05em; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .research-grid { grid-template-columns: repeat(2,1fr); }
+  .toolkit-grid { grid-template-columns: repeat(2,1fr); }
+  .referees-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1.1rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 58px; left: 0; right: 0;
+    background: rgba(12,36,97,0.97); padding: 2rem;
+    gap: 1.4rem; border-bottom: 1px solid var(--border); z-index: 150;
+  }
+  .hamburger { display: flex; }
+  section { padding: 5rem 1.5rem; }
+  #hero { padding: 7rem 1.5rem 4rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .identity-card { position: static; }
+  .focus-grid { grid-template-columns: 1fr; }
+  .research-grid { grid-template-columns: 1fr; }
+  .toolkit-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
+  .pub-year { font-size: 1.1rem; text-align: left; }
+  .pub-badges { flex-direction: row; align-items: center; }
+  .referees-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+  .hero-molecule { width: 300px; right: -100px; }
+  .division-banner { margin: -5rem -1.5rem 4rem; padding: 1.2rem 1.5rem; }
+  .skills-cols { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">D. E. Charlie</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#memberships">Memberships</a></li>
+    <li><a href="#toolkit">Toolkit</a></li>
+    <li><a href="#contact" class="nav-cta">Collaborate</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb orb-1"></div>
+  <div class="hero-orb orb-2"></div>
+  <div class="hero-orb orb-3"></div>
+
+  <svg class="hero-molecule" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="200" cy="200" r="9" fill="#E8B824"/>
+    <circle cx="110" cy="130" r="6" fill="#4A90E2"/>
+    <circle cx="290" cy="130" r="6" fill="#4A90E2"/>
+    <circle cx="70"  cy="220" r="5" fill="#C0285A"/>
+    <circle cx="330" cy="220" r="5" fill="#C0285A"/>
+    <circle cx="130" cy="300" r="6" fill="#4A90E2"/>
+    <circle cx="270" cy="300" r="6" fill="#4A90E2"/>
+    <circle cx="200" cy="70"  r="5" fill="#C0285A"/>
+    <circle cx="200" cy="330" r="5" fill="#C0285A"/>
+    <circle cx="50"  cy="160" r="4" fill="#E8B824"/>
+    <circle cx="350" cy="160" r="4" fill="#E8B824"/>
+    <circle cx="50"  cy="270" r="4" fill="#E8B824"/>
+    <circle cx="350" cy="270" r="4" fill="#E8B824"/>
+    <line x1="200" y1="200" x2="110" y2="130" stroke="#4A90E2" stroke-width="1.5"/>
+    <line x1="200" y1="200" x2="290" y2="130" stroke="#4A90E2" stroke-width="1.5"/>
+    <line x1="200" y1="200" x2="70"  y2="220" stroke="#E8B824" stroke-width="1"/>
+    <line x1="200" y1="200" x2="330" y2="220" stroke="#E8B824" stroke-width="1"/>
+    <line x1="200" y1="200" x2="130" y2="300" stroke="#4A90E2" stroke-width="1.5"/>
+    <line x1="200" y1="200" x2="270" y2="300" stroke="#4A90E2" stroke-width="1.5"/>
+    <line x1="110" y1="130" x2="200" y2="70"  stroke="#C0285A" stroke-width="1"/>
+    <line x1="290" y1="130" x2="200" y2="70"  stroke="#C0285A" stroke-width="1"/>
+    <line x1="70"  y1="220" x2="50"  y2="160" stroke="#4A90E2" stroke-width="0.8"/>
+    <line x1="330" y1="220" x2="350" y2="160" stroke="#4A90E2" stroke-width="0.8"/>
+    <line x1="130" y1="300" x2="50"  y2="270" stroke="#C0285A" stroke-width="0.8"/>
+    <line x1="270" y1="300" x2="350" y2="270" stroke="#C0285A" stroke-width="0.8"/>
+    <line x1="130" y1="300" x2="200" y2="330" stroke="#E8B824" stroke-width="1"/>
+    <line x1="270" y1="300" x2="200" y2="330" stroke="#E8B824" stroke-width="1"/>
+    <line x1="110" y1="130" x2="70"  y2="220" stroke="#E8B824" stroke-width="0.7" stroke-dasharray="4 4"/>
+    <line x1="290" y1="130" x2="330" y2="220" stroke="#E8B824" stroke-width="0.7" stroke-dasharray="4 4"/>
+  </svg>
+
+  <div class="hero-label">University of Calabar · Nigeria · Computational Chemistry</div>
+
+  <h1 class="hero-name">Destiny<br>Emmanuel <span class="name-accent">Charlie</span></h1>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-ids">
+    <span class="hero-id-badge">Scopus ID: <strong>57917143600</strong></span>
+    <span class="hero-id-badge">ORCID: <strong>0000-0002-9893-4260</strong></span>
+    <span class="hero-id-badge">B.Sc. Chemistry · <strong>Awarded 2025</strong></span>
+  </div>
+
+  <p class="hero-titles">
+    <strong>Research Scientist</strong> · Computational Chemist · <strong>Scientific & Academic Writer</strong>
+  </p>
+
+  <blockquote class="hero-philosophy">
+    "Advancing molecular understanding through computational precision — and translating scientific complexity into rigorous, publication-ready scholarly discourse."
+  </blockquote>
+
+  <div class="hero-ctas">
+    <a href="#research" class="btn-primary">View Research</a>
+    <a href="#publications" class="btn-outline">Publications</a>
+    <a href="#writing" class="btn-outline">Writing Services</a>
+    <a href="#contact" class="btn-outline">Collaborate</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <!-- Identity card -->
+    <div class="identity-card reveal">
+      <div class="avatar-ring">D</div>
+      <div class="id-name">Destiny Emmanuel Charlie</div>
+      <div class="id-role">Research Scientist · Computational Chemist</div>
+      <div class="id-tags">
+        <span class="tag tag-gold">Computational Chemistry</span>
+        <span class="tag tag-crimson">DFT Studies</span>
+        <span class="tag tag-blue">Scientific Writing</span>
+        <span class="tag tag-gold">Molecular Dynamics</span>
+        <span class="tag tag-crimson">Corrosion Inhibition</span>
+        <span class="tag tag-blue">Energy Materials</span>
+      </div>
+      <div class="id-stat"><span class="stat-label">Location</span><span class="stat-value">Calabar, Nigeria (Remote)</span></div>
+      <div class="id-stat"><span class="stat-label">Degree</span><span class="stat-value">B.Sc. Chemistry, UNICAL</span></div>
+      <div class="id-stat"><span class="stat-label">PG Diploma</span><span class="stat-value">Chemistry, UNICAL (2026)</span></div>
+      <div class="id-stat"><span class="stat-label">Scopus ID</span><span class="stat-value">57917143600</span></div>
+      <div class="id-stat"><span class="stat-label">ORCID</span><span class="stat-value">0000-0002-9893-4260</span></div>
+      <div class="id-stat"><span class="stat-label">Google Scholar</span><span class="stat-value"><a href="https://scholar.google.com/citations?user=9Y9614oAAAAJ&hl=en&oi=ao" target="_blank">View Profile ↗</a></span></div>
+      <div class="id-stat"><span class="stat-label">Supervisor</span><span class="stat-value">Dr. Alexander I. Ikeuba</span></div>
+    </div>
+
+    <!-- About body -->
+    <div class="about-body">
+      <div class="section-label">Research Identity</div>
+      <h2 class="section-title">Computational Chemist &amp;<br><em>Scientific Scholar</em></h2>
+      <div class="section-divider"></div>
+
+      <p class="lead reveal">
+        Destiny Emmanuel Charlie is a computational chemist and research scientist whose work sits at the intersection of quantum mechanical modelling, molecular simulation, and materials science. She earned her Bachelor of Science in Chemistry from the University of Calabar in May 2025 and is currently pursuing a Postgraduate Diploma in the same department.
+      </p>
+
+      <p class="reveal">
+        Her undergraduate thesis — <em>Experimental and Theoretical Assessment of the Corrosion Inhibition Efficacy of Albendazole, Secnidazole, and Diethylcarbamazine on Carbon Steel in Acid Chloride Medium</em> — combined gasometric and gravimetric experimental methods with DFT calculations and molecular dynamics simulations to evaluate pharmaceutical compounds as environmentally friendly corrosion inhibitors.
+      </p>
+
+      <p class="reveal">
+        As a Research Assistant within the Computational and Bio-Simulation Research Group (CBSRG) at UNICAL, she has co-authored over 17 peer-reviewed publications in internationally indexed journals including <em>ACS Omega</em>, <em>Journal of Molecular Structure</em>, <em>International Journal of Hydrogen Energy</em>, and <em>Diamond and Related Materials</em>. She is a member of the ACS, RSC, and the Student Chemical Society of Nigeria.
+      </p>
+
+      <div class="focus-grid">
+        <div class="focus-card reveal"><h4>⚛ Quantum & Theoretical Chemistry</h4><p>DFT, HOMO–LUMO analysis, Fukui functions, MEP mapping</p></div>
+        <div class="focus-card reveal"><h4>🔬 Surface & Corrosion Chemistry</h4><p>Adsorption isotherms, inhibitor efficiency, metal surface modelling</p></div>
+        <div class="focus-card reveal"><h4>🧬 Molecular Docking & Drug Design</h4><p>Biomolecular interactions, biosensor design, anticancer studies</p></div>
+        <div class="focus-card reveal"><h4>⚡ Energy & Nanomaterials</h4><p>Perovskites, hydrogen storage, battery electrodes, photocatalysts</p></div>
+        <div class="focus-card reveal"><h4>🌿 Environmental Sensors</h4><p>Gas detection, pollutant remediation, COF-based sensing platforms</p></div>
+        <div class="focus-card reveal"><h4>📝 Scientific Communication</h4><p>Manuscript preparation, peer-review writing, grant proposals</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH DIVISION -->
+<section id="research">
+  <div class="research-max">
+    <div class="division-banner reveal">
+      <div class="division-roman">I</div>
+      <div class="division-text">
+        <h3>Academic Research Division</h3>
+        <p>Computational & Bio-Simulation Research Group · University of Calabar</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-bottom:3rem;">
+      <div class="section-label">Research Programme</div>
+      <h2 class="section-title">Computational &amp; <em>Theoretical Chemistry</em></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="research-grid">
+      <div class="r-card reveal">
+        <div class="r-num">01</div>
+        <h3>Density Functional Theory (DFT) Studies</h3>
+        <p>Quantum mechanical modelling using B3LYP/def2-SVP + gd3bj dispersion, computing optimized geometries, HOMO/LUMO energies, chemical hardness/softness, electronegativity, ionization potential, electron affinity, and Fukui function analysis with MEP mapping.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Gaussian 16</span><span class="tool-pill">GaussView 6</span>
+          <span class="tool-pill">B3LYP/def2-SVP</span><span class="tool-pill">DFT+gd3bj</span>
+        </div>
+      </div>
+      <div class="r-card reveal">
+        <div class="r-num">02</div>
+        <h3>Molecular Dynamics Simulations</h3>
+        <p>Adsorption Forcite MD simulations in Materials Studio to model molecule–surface interactions, probe adsorption geometries and dynamics on metal surface models, and determine thermodynamic binding parameters.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Materials Studio</span><span class="tool-pill">FORCITE</span>
+          <span class="tool-pill">COMPASS II</span>
+        </div>
+      </div>
+      <div class="r-card reveal">
+        <div class="r-num">03</div>
+        <h3>Corrosion Inhibition Research</h3>
+        <p>Combined experimental (gasometric/gravimetric tests, UV–Vis, FTIR) and computational investigation of pharmaceutical compounds and organic molecules as corrosion inhibitors for carbon steel in acidic chloride media.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Gasometric</span><span class="tool-pill">Gravimetric</span>
+          <span class="tool-pill">DFT</span><span class="tool-pill">Langmuir Isotherm</span>
+        </div>
+      </div>
+      <div class="r-card reveal">
+        <div class="r-num">04</div>
+        <h3>Energy Storage &amp; Perovskite Materials</h3>
+        <p>Electronic, optoelectronic, thermodynamic, and spectroscopic (X-ray core-level) characterization of halide and oxide perovskites (X–SnI₃, X–SnO₃), hydrogen storage materials, and Li/Mg/Zn/Fe-air battery systems.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Gaussian 16</span><span class="tool-pill">Perovskites</span>
+          <span class="tool-pill">H₂ Storage</span>
+        </div>
+      </div>
+      <div class="r-card reveal">
+        <div class="r-num">05</div>
+        <h3>Nanomaterials &amp; Environmental Sensors</h3>
+        <p>Computational design of doped fullerenes, graphene nanoflakes, silicon carbide nanotubes, and covalent organic frameworks (COFs) as sensors for pollutants (PCDDs, CO₂) and as biosensors for anticancer drugs.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Fullerene C₅₉X</span><span class="tool-pill">Graphene NF</span>
+          <span class="tool-pill">COF</span><span class="tool-pill">SiCNT</span>
+        </div>
+      </div>
+      <div class="r-card reveal" style="background:rgba(232,184,36,0.04);border:1px solid rgba(232,184,36,0.14);">
+        <div class="r-num" style="color:rgba(232,184,36,0.2);">06</div>
+        <h3 style="color:var(--gold);">Molecular Docking &amp; Drug Design</h3>
+        <p>In-silico assessment of bioactive compounds against therapeutic targets, synthesis characterization (X-ray crystallography, spectroscopic), and anticancer activity evaluation of metal complexes via theoretical approach.</p>
+        <div class="tool-pills">
+          <span class="tool-pill">Molecular Docking</span><span class="tool-pill">Re(I) Complexes</span>
+          <span class="tool-pill">In-silico</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="pub-header reveal">
+    <div>
+      <div class="section-label">Research Archive</div>
+      <h2 class="section-title">Peer-Reviewed <em>Publications</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <a href="https://scholar.google.com/citations?user=9Y9614oAAAAJ&hl=en&oi=ao" target="_blank" class="scholar-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
+      Full Scholar Profile
+    </a>
+  </div>
+
+  <div class="pub-stats reveal" style="max-width:1200px;margin:0 auto 2.5rem;display:flex;gap:2.5rem;">
+    <div class="pub-stat-item"><div class="pub-stat-num">17+</div><div class="pub-stat-label">Publications</div></div>
+    <div class="pub-stat-item"><div class="pub-stat-num">2022</div><div class="pub-stat-label">First Publication</div></div>
+    <div class="pub-stat-item"><div class="pub-stat-num">ACS · RSC · Elsevier</div><div class="pub-stat-label">Publisher Portfolio</div></div>
+  </div>
+
+  <div class="pub-list">
+
+    <!-- 2025 publications -->
+    <div class="pub-item reveal">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h4>Hydrogen encapsulation properties of heteroatoms doped fullerenes: A DFT study for potential hydrogen storage application</h4>
+        <div class="pub-authors">Mbonu, I. J., Runde, M., <strong>Charlie, D. E.</strong>, &amp; Qadir, K. W.</div>
+        <div class="pub-journal">Diamond and Related Materials, 152, 111994</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h4>Chemically modified silicon carbide nanotubes by indium mono-doping and doping with antimony, tin, and tellurium as sensors for polychlorinated dibenzo dioxins (PCDDs)</h4>
+        <div class="pub-authors">Odey, M. O., <strong>Charlie, D. E.</strong>, Nelson, F., Obim, R. O., &amp; Runde, M.</div>
+        <div class="pub-journal">Materials Chemistry and Physics, 130910</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h4>Exploring the adsorption properties of PTFE-decorated and metal doped covalent organic frameworks for environmental cleanup: A computational outlook</h4>
+        <div class="pub-authors">Inah, B. E., Azogor, N. F., Akpan, H. T., Levi, O. E., <strong>Charlie, D.</strong>, &amp; Adeleye, A. P.</div>
+        <div class="pub-journal">Computational and Theoretical Chemistry, 1248, 115202</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2025</div>
+      <div class="pub-body">
+        <h4>Engineering of covalent organic framework (COF) via mono-doping and co-doping for the detection of CO₂ gas pollutant</h4>
+        <div class="pub-authors">Agwupuye, J. A., Romanus, E. N., Ihedioha, J. N., Amodu, I. O., Ekpong, B. O., <strong>Charlie, D. E.</strong>, Umo, F. E. &amp; Zeeshan, M.</div>
+        <div class="pub-journal">Next Materials, 7, 100460</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <!-- 2024 publications -->
+    <div class="pub-item reveal">
+      <div class="pub-year">2024</div>
+      <div class="pub-body">
+        <h4>In-silico assessment of bioactive compounds from chewing stick (Salvadora Persica) against N-acetylneuraminate lyase (5ZKA) of Fusobacterium nucleatum</h4>
+        <div class="pub-authors">Nwaokorie, F., Abdalla, M., Edet, U. O., et al., <strong>Charlie, D. E.</strong>, et al.</div>
+        <div class="pub-journal">Journal of Molecular Structure, 1316, 138733</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2024</div>
+      <div class="pub-body">
+        <h4>A review on exploring the potential of liquid hydrogen as a fuel for a sustainable future</h4>
+        <div class="pub-authors">Ikeuba, A. I., Sonde, C. U., <strong>Charlie, D.</strong>, Usibe, B. E., Raimi, M., Obike, A. I., &amp; Magu, T. O.</div>
+        <div class="pub-journal">Sustainable Chemistry One World, 100022</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Review Article</span><span class="badge badge-c">Open Access</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2024</div>
+      <div class="pub-body">
+        <h4>Advances on lithium, magnesium, zinc, and iron-air batteries as energy delivery devices — a critical review</h4>
+        <div class="pub-authors">Ikeuba, A. I., Iwuji, P. C., Nabuk, I. I. E., Obono, O. E., <strong>Charlie, D.</strong>, et al.</div>
+        <div class="pub-journal">Journal of Solid-State Electrochemistry, 28(9), 2999–3025</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Review Article</span><span class="badge badge-b">Springer</span></div>
+    </div>
+
+    <!-- 2023 publications -->
+    <div class="pub-item first-author reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Effects of alkali-metals (X= Li, Na, K) doping on the electronic, optoelectronic, thermodynamic, and X-ray spectroscopic properties of X–SnI₃ halide perovskites</h4>
+        <div class="pub-authors"><strong>Charlie, D. E.</strong>, Louis, H., Ogunwale, G. J., Amodu, I. O., Ashishie, P. B., Agwamba, E. C., &amp; Adeyinka, A. S.</div>
+        <div class="pub-journal">Computational Condensed Matter, 35, e00798</div>
+      </div>
+      <div class="pub-badges">
+        <span class="first-star">★ First Author</span>
+        <span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Hydrogen storage capacity of Al, Ca, Mg, Ni, and Zn decorated phosphorus-doped graphene: insight from theoretical calculations</h4>
+        <div class="pub-authors">Ikot, I. J., Olagoke, P. O., Louis, H., <strong>Charlie, D. E.</strong>, Magu, T. O., &amp; Owen, A. E.</div>
+        <div class="pub-journal">International Journal of Hydrogen Energy, 48(36), 13362–13376</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Design of new bithienothiophene (BTTI) central core-based small molecules as efficient hole transport materials for perovskite solar cells and donor materials for organic solar cells</h4>
+        <div class="pub-authors">Abbas, F., Mohammadi, M. D., Louis, H., Amodu, I. O., <strong>Charlie, D. E.</strong>, &amp; Gber, T. E.</div>
+        <div class="pub-journal">Materials Science and Engineering: B, 291, 116392</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Detection of hydroxymethanesulfonate (HMS) by transition metal-anchored fullerene nanoclusters</h4>
+        <div class="pub-authors">Louis, H., Gber, T. E., <strong>Charlie, D. E.</strong>, Egemonye, T. C., &amp; Orosun, M. M.</div>
+        <div class="pub-journal">Journal of the Iranian Chemical Society, 20(3), 713–729</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Springer</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Modeling the structural, electronic, optoelectronic, thermodynamic, and core-level spectroscopy of X–SnO₃ (X= Ag, Cs, Hf) perovskites</h4>
+        <div class="pub-authors">Ogunwale, G. J., Louis, H., Amodu, I. O., <strong>Charlie, D. E.</strong>, Ikot, I. J., Olagoke, P. O., &amp; Adeyinka, A. S.</div>
+        <div class="pub-journal">Computational and Theoretical Chemistry, 1220, 114003</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Molecular simulation of Cu, Ag, and Au-decorated Molybdenum doped graphene nanoflakes as a biosensor for carmustine, an anticancer drug</h4>
+        <div class="pub-authors">Chima, C. M., Louis, H., <strong>Charlie, D. E.</strong>, Imojara, A., Benjamin, I., Uzowuru, E. E., &amp; Adeyinka, A. S.</div>
+        <div class="pub-journal">Materials Science in Semiconductor Processing, 165, 107669</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Elsevier</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Quantum capacitances of alkaline-earth metals: Be, Ca, and Mg integrated on Al₁₂N₁₂ and Al₁₂P₁₂ nanostructured — insight from DFT approach</h4>
+        <div class="pub-authors">Ekereke, E. E., Ikechukwu, O. C., Louis, H., Gber, T. E., <strong>Charlie, D. E.</strong>, Ikeuba, A. I., &amp; Adeyinka, A. S.</div>
+        <div class="pub-journal">Monatshefte für Chemie — Chemical Monthly, 154(3), 355–365</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-b">Springer</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2023</div>
+      <div class="pub-body">
+        <h4>Anticancer activities of Re(I) tricarbonyl and its imidazole-based ligands: insight from a theoretical approach</h4>
+        <div class="pub-authors">Matlou, M. L., Louis, H., <strong>Charlie, D. E.</strong>, Agwamba, E. C., Amodu, I. O., Tembu, V. J., &amp; Manicum, A. L. E.</div>
+        <div class="pub-journal">ACS Omega, 8(11), 10242–10252</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-c">ACS · Open Access</span></div>
+    </div>
+
+    <!-- 2022 publications -->
+    <div class="pub-item reveal">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <h4>Synthesis, X-ray crystallography, spectroscopic characterization, electronic structure investigation and molecular docking studies of single Cobalt(II) metal complex</h4>
+        <div class="pub-authors">Gannouni, A., Louis, H., Roisnel, T., Ekereke, E. E., <strong>Charlie, D. E.</strong>, Ukwenya, E., &amp; Kefi, R.</div>
+        <div class="pub-journal">Peer-Reviewed Journal Article · 2022</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span></div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-year">2022</div>
+      <div class="pub-body">
+        <h4>Probing the reactions of thiourea (CH₄N₂S) with metals (X= Au, Hf, Hg, Ir, Os, W, Pt, and Re) anchored on fullerene surfaces (C₅₉X)</h4>
+        <div class="pub-authors">Louis, H., <strong>Charlie, D. E.</strong>, Amodu, I. O., Benjamin, I., Gber, T. E., Agwamba, E. C., &amp; Adeyinka, A. S.</div>
+        <div class="pub-journal">ACS Omega, 7(39), 35118–35135</div>
+      </div>
+      <div class="pub-badges"><span class="badge badge-a">Peer Reviewed</span><span class="badge badge-c">ACS · Open Access</span></div>
+    </div>
+
+    <!-- Scholar link row -->
+    <div class="pub-item" style="background:rgba(232,184,36,0.04);">
+      <div class="pub-year" style="font-size:1rem;padding-top:6px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
+      </div>
+      <div class="pub-body"><p style="font-size:0.8rem;color:var(--gray-mid);margin:0;font-style:italic;">For complete citation metrics, h-index, and all articles, visit the Google Scholar profile.</p></div>
+      <div class="pub-badges"><a href="https://scholar.google.com/citations?user=9Y9614oAAAAJ&hl=en&oi=ao" target="_blank" class="btn-outline" style="font-size:0.68rem;padding:0.5rem 1.1rem;white-space:nowrap;">View All ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-max">
+    <div class="reveal">
+      <div class="section-label">Academic Timeline</div>
+      <h2 class="section-title">Research &amp; <em>Experience</em></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">May 2022 – Present</div>
+        <h3>Research Assistant</h3>
+        <div class="tl-org">Computational &amp; Bio-Simulation Research Group (CBSRG) · University of Calabar</div>
+        <p>Coordinated and contributed to multiple computational projects spanning adsorption phenomena, electronic structure analysis, nanomaterial design, energy-related materials, and environmental sensors. Applied advanced computational tools for structural optimization, reactivity descriptors, and molecular dynamics simulations. Assisted in drafting and revising manuscripts for peer-reviewed journals; supervised junior researchers on Gaussian/GaussView workflows and MD setup in Materials Studio.</p>
+        <div class="tl-methods">
+          <span class="method-tag">DFT · B3LYP/def2-SVP</span>
+          <span class="method-tag">Molecular Dynamics</span>
+          <span class="method-tag">Gaussian 16/09W</span>
+          <span class="method-tag">GaussView 6</span>
+          <span class="method-tag">Materials Studio</span>
+          <span class="method-tag">Manuscript Preparation</span>
+          <span class="method-tag">Literature Review</span>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2024 – 2025</div>
+        <h3>Undergraduate Research Project</h3>
+        <div class="tl-org">Applied Chemistry Lab · Department of Pure and Applied Chemistry · UNICAL</div>
+        <p><em>Thesis: Experimental and Theoretical Assessment of the Corrosion Inhibition Efficacy of Albendazole, Secnidazole, and Diethylcarbamazine on Carbon Steel in Acid Chloride Medium</em> · Supervised by Dr. Alexander I. Ikeuba.</p>
+        <p>Designed and executed a combined experimental–computational study evaluating three expired pharmaceutical compounds as corrosion inhibitors for carbon steel. Experimental work included gasometric and gravimetric corrosion tests, inhibition efficiency calculations, surface coverage, and thermodynamic analysis. Computational work used DFT (B3LYP/def2-SVP + gd3bj), Fukui function analysis, MEP mapping, and Adsorption Forcite MD simulations in Materials Studio to model molecule–metal surface interactions.</p>
+        <div class="tl-methods">
+          <span class="method-tag">Gasometric Testing</span>
+          <span class="method-tag">Gravimetric Analysis</span>
+          <span class="method-tag">DFT B3LYP</span>
+          <span class="method-tag">Fukui Analysis</span>
+          <span class="method-tag">MEP Mapping</span>
+          <span class="method-tag">Langmuir Adsorption</span>
+          <span class="method-tag">UV–Vis · FTIR</span>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">November 2024</div>
+        <h3>Conference Participant</h3>
+        <div class="tl-org">Nigerian Conference on Physical Sciences (UNICAL-FPS)</div>
+        <p>Participated in the annual conference themed <em>"Reservation in Physical Sciences: a Veritable Tool in National Socio-economic Recovery"</em> — engaging with cutting-edge research presentations across chemistry, physics, and materials science.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">March 2022 – August 2022</div>
+        <h3>Industrial Training</h3>
+        <div class="tl-org">Unical Bright Paint Nigeria Limited · Laboratory Assistant &amp; Control Personnel</div>
+        <p>Completed structured industrial attachment as a Laboratory Assistant and quality control personnel, gaining hands-on experience in analytical laboratory operations, reagent preparation, quality assurance protocols, and technical documentation in an industrial chemistry setting.</p>
+        <div class="tl-methods">
+          <span class="method-tag">Quality Control</span>
+          <span class="method-tag">Lab Analytics</span>
+          <span class="method-tag">Technical Documentation</span>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">October 2023</div>
+        <h3>Campaign Team Member</h3>
+        <div class="tl-org">The Evolving Women's Organization · Future Code Tech Summit</div>
+        <p>Contributed to planning and campaign activities for a tech-focused summit aimed at empowering youth in innovation and leadership. Collaborated with a team to raise awareness and promote youth participation.</p>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2019 – 2020</div>
+        <h3>Assistant Secretary General (Elected)</h3>
+        <div class="tl-org">Eket Students' Association, UNICAL Chapter (EKSA-UCC)</div>
+        <p>Elected and sworn in as Assistant Secretary General for the 2019/2020 academic session — managing official correspondence, meeting documentation, and administrative coordination for the student association.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONAL WRITING DIVISION -->
+<section id="writing">
+  <div class="writing-max">
+    <div class="division-banner reveal">
+      <div class="division-roman">II</div>
+      <div class="division-text">
+        <h3>Professional Writing Division</h3>
+        <p>Remote Content Writer · Academic Writer · Manuscript Specialist</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-bottom:3rem;">
+      <div class="section-label">Writing Services</div>
+      <h2 class="section-title">Scientific Writing &amp;<br><em>Publication Support</em></h2>
+      <div class="section-divider"></div>
+      <p style="max-width:680px;font-size:0.95rem;color:var(--gray-mid);line-height:1.85;">
+        As a practicing research scientist with 17+ peer-reviewed publications, every writing engagement is grounded in genuine domain expertise. Her services are trusted by researchers, postgraduates, and institutions requiring precision, clarity, and publication-grade scholarly output.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">📝</div>
+        <h3>Academic &amp; Scholarly Writing</h3>
+        <p>Comprehensive writing and editing of research manuscripts, journal articles, and academic papers. Attention to scientific accuracy, logical flow, clarity, and adherence to target journal standards across disciplines.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">📘</div>
+        <h3>Thesis &amp; Dissertation Support</h3>
+        <p>End-to-end support for undergraduate and postgraduate thesis development — chapter structuring, argument development, APA/MLA/Chicago/Vancouver referencing, formatting, and final proofreading to institutional standards.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">📄</div>
+        <h3>Manuscript Preparation &amp; Journal Submission</h3>
+        <p>Full preparation of research manuscripts for peer-reviewed journal submission — author guidelines formatting, cover letter drafting, response-to-reviewer support, and resubmission strategy.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🏛</div>
+        <h3>Grant &amp; Research Proposal Writing</h3>
+        <p>Compelling research proposals and grant applications with strong problem statements, clear objectives, methodology narratives, and impact statements tailored to funding bodies and institutional requirements.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">📚</div>
+        <h3>Literature Reviews &amp; Summaries</h3>
+        <p>Systematic and narrative literature reviews with critical research synthesis, gap identification, and structured bibliographic management using Zotero and Mendeley across peer-reviewed databases.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">✨</div>
+        <h3>AI Content Humanization &amp; Proofreading</h3>
+        <p>Specialized editing of AI-generated content into natural, publication-ready academic prose. Deep proofreading and copyediting to eliminate errors, improve clarity, and ensure originality and voice.</p>
+      </div>
+    </div>
+
+    <!-- Core writing skills -->
+    <div class="reveal" style="margin-top:3.5rem;padding:2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;">
+      <h3 style="font-family:'EB Garamond',serif;font-size:1.15rem;color:var(--white);margin-bottom:0.3rem;">Core Writing Competencies</h3>
+      <p style="font-size:0.8rem;color:var(--gray-mid);margin-bottom:1rem;">Domain expertise: Chemistry · Computational Research · Bio-simulation · Materials Science</p>
+      <div class="skills-cols">
+        <div class="skill-line">Research writing &amp; documentation</div>
+        <div class="skill-line">Scientific &amp; technical writing</div>
+        <div class="skill-line">Proofreading &amp; copyediting</div>
+        <div class="skill-line">AI-generated content humanization</div>
+        <div class="skill-line">Data interpretation &amp; research synthesis</div>
+        <div class="skill-line">Content writing (analytical &amp; long-form)</div>
+        <div class="skill-line">Remote writing &amp; deadline management</div>
+        <div class="skill-line">Citation styles: APA, MLA, Chicago, Vancouver</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIPS & CERTIFICATIONS -->
+<section id="memberships">
+  <div class="mem-max">
+    <div class="reveal">
+      <div class="section-label">Professional Standing</div>
+      <h2 class="section-title">Memberships &amp; <em>Certifications</em></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="two-col">
+      <div class="reveal">
+        <div class="mem-group">
+          <h3>Professional Memberships</h3>
+          <div class="mem-item">
+            <div class="mem-dot"></div>
+            <div class="mem-text">
+              <h4>Member — American Chemical Society (ACS)</h4>
+              <span>October 2024 – Present</span>
+            </div>
+          </div>
+          <div class="mem-item">
+            <div class="mem-dot"></div>
+            <div class="mem-text">
+              <h4>Member — Royal Society of Chemistry (MRSC)</h4>
+              <span>October 2024 – Present</span>
+            </div>
+          </div>
+          <div class="mem-item">
+            <div class="mem-dot"></div>
+            <div class="mem-text">
+              <h4>Member — Student Chemical Society of Nigeria (MSCSN)</h4>
+              <span>February 2019 – Present</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="mem-group">
+          <h3>Certifications &amp; Training</h3>
+          <div class="mem-item">
+            <div class="mem-dot" style="background:var(--blue-vivid)"></div>
+            <div class="mem-text">
+              <h4>Introduction to Material Science for Technological Application</h4>
+              <p>Arizona State University (ASU)</p>
+              <span>Awaiting · March 2026</span>
+            </div>
+          </div>
+          <div class="mem-item">
+            <div class="mem-dot" style="background:var(--blue-vivid)"></div>
+            <div class="mem-text">
+              <h4>PRDV008: Preparing and Delivering Presentations</h4>
+              <p>Saylor Academy</p>
+              <span>February 2026</span>
+            </div>
+          </div>
+          <div class="mem-item">
+            <div class="mem-dot" style="background:var(--blue-vivid)"></div>
+            <div class="mem-text">
+              <h4>Diploma in Computer Applications</h4>
+              <p>Onward Multipurpose Co-Operative Society Limited</p>
+              <span>August 2017 – January 2018</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit">
+  <div class="toolkit-max">
+    <div class="reveal">
+      <div class="section-label">Technical Competencies</div>
+      <h2 class="section-title">Research &amp; <em>Computational Toolkit</em></h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="toolkit-grid">
+      <div class="tk-cat reveal">
+        <h3>Computational Chemistry</h3>
+        <div class="tk-item"><div class="tk-dot"></div><span>GaussView 6.0.16</span></div>
+        <div class="tk-item"><div class="tk-dot"></div><span>Gaussian 16 / 09W</span></div>
+        <div class="tk-item"><div class="tk-dot"></div><span>Materials Studio (MD &amp; CASTEP)</span></div>
+        <div class="tk-item"><div class="tk-dot"></div><span>ChemDraw (molecular sketching)</span></div>
+        <div class="tk-item"><div class="tk-dot"></div><span>Molecular docking tools</span></div>
+        <div class="tk-item"><div class="tk-dot"></div><span>UV–Vis, FTIR, basic NMR</span></div>
+      </div>
+
+      <div class="tk-cat reveal">
+        <h3>Research &amp; Reference Management</h3>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Zotero</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Mendeley</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Google Scholar</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Web of Science / Scopus</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Academic research databases</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--crimson-soft)"></div><span>Citation &amp; formatting management</span></div>
+      </div>
+
+      <div class="tk-cat reveal">
+        <h3>Scientific Writing &amp; Productivity</h3>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>Microsoft Office Suite (Word, Excel, PPT)</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>Google Workspace (Docs, Sheets, Drive)</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>Grammarly Premium</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>ChatGPT (research &amp; drafting support)</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>Canva (document &amp; poster design)</span></div>
+        <div class="tk-item"><div class="tk-dot" style="background:var(--blue-vivid)"></div><span>Slack · Microsoft Teams · Zoom</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-max">
+    <div class="section-label" style="justify-content:center;">Research Collaboration Gateway</div>
+    <h2 class="section-title reveal">Open to <em>Collaborations</em></h2>
+    <div class="section-divider" style="margin:1.2rem auto 2.5rem;"></div>
+
+    <p class="contact-tagline reveal">
+      "Seeking research collaborations, co-authorship opportunities, academic writing partnerships, and remote scientific engagements — available globally."
+    </p>
+
+    <div class="contact-cards reveal">
+      <a href="mailto:charliedestiny7@gmail.com" class="c-card">
+        <div class="c-icon">✉</div>
+        <div class="c-label">Email</div>
+        <div class="c-val">charliedestiny7@gmail.com</div>
+      </a>
+      <a href="https://www.linkedin.com/in/destiny-charlie-5776872bb" target="_blank" class="c-card">
+        <div class="c-icon" style="font-size:1.3rem;font-weight:600;color:var(--blue-vivid);">in</div>
+        <div class="c-label">LinkedIn</div>
+        <div class="c-val">@Destiny Charlie</div>
+      </a>
+      <a href="https://scholar.google.com/citations?user=9Y9614oAAAAJ&hl=en&oi=ao" target="_blank" class="c-card">
+        <div class="c-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg></div>
+        <div class="c-label">Google Scholar</div>
+        <div class="c-val">Research Profile</div>
+      </a>
+      <a href="tel:+2349011895767" class="c-card">
+        <div class="c-icon">📞</div>
+        <div class="c-label">Phone</div>
+        <div class="c-val">+234 901 189 5767</div>
+      </a>
+    </div>
+
+    <p class="collab-note reveal">
+      Based in Calabar, Nigeria · Open to global remote collaborations · Flexible with time zones.<br>
+      Available for full-time or part-time remote research and writing engagements.
+    </p>
+
+    <!-- Referees -->
+    <div class="reveal" style="margin-top:4rem;text-align:left;">
+      <div class="section-label" style="justify-content:center;margin-bottom:1.5rem;">Academic Referees</div>
+      <div class="referees-grid">
+        <div class="ref-card">
+          <h4>Dr. Ededet Eno</h4>
+          <p>Associate Professor · Department of Pure and Applied Chemistry · University of Calabar</p>
+          <p style="margin-top:0.4rem;"><a href="mailto:dialededet@yahoo.com" style="color:var(--gold);font-size:0.74rem;">dialededet@yahoo.com</a></p>
+          <div class="ref-rel">Undergraduate Course Lecturer</div>
+        </div>
+        <div class="ref-card">
+          <h4>Dr. Louis Hitler</h4>
+          <p>Lecturer · Department of Pure and Applied Chemistry · University of Calabar</p>
+          <p style="margin-top:0.4rem;"><a href="mailto:louismuzong@gmail.com" style="color:var(--gold);font-size:0.74rem;">louismuzong@gmail.com</a></p>
+          <div class="ref-rel">Undergraduate Course Lecturer</div>
+        </div>
+        <div class="ref-card">
+          <h4>Dr. Alexander I. Ikeuba</h4>
+          <p>Senior Lecturer · Department of Pure and Applied Chemistry · University of Calabar</p>
+          <p style="margin-top:0.4rem;"><a href="mailto:ikeubaalexander@yahoo.com" style="color:var(--gold);font-size:0.74rem;">ikeubaalexander@yahoo.com</a></p>
+          <div class="ref-rel">Undergraduate Project Supervisor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Destiny Emmanuel Charlie</div>
+  <div class="footer-copy">© 2025 · Scopus: 57917143600 · ORCID: 0000-0002-9893-4260 · University of Calabar, Nigeria</div>
+</footer>
+
+<script>
+  // Hamburger
+  const ham = document.getElementById('hamburger');
+  const nl  = document.getElementById('navLinks');
+  ham.addEventListener('click', () => nl.classList.toggle('open'));
+  nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => obs.observe(el));
+
+  // Nav shrink
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.padding =
+      window.scrollY > 80 ? '0.7rem 3.5rem' : '1.1rem 3.5rem';
+  });
+</script>
+</body>
+</html>
